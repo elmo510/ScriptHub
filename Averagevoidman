@@ -92,29 +92,43 @@ end
 -- Scripts Button Functionality
 buttons.Scripts.MouseButton1Click:Connect(function()
     clearContent()
-    
-    local scriptButtons = {"Bee Swarm Simulator", "Jailbreak", "Pls Donate", "Pet"}
+
+    -- Define the script buttons for the "Scripts" section
+    local scriptButtons = {
+        "Bee Swarm Simulator",
+        "Bloxfruits",
+        "Sol's RNG",
+        "Lumber Tycoon 2",
+        "Pet", -- This button will have sub-buttons
+        "Fisch",
+        "Pls Donate"
+    }
+
     local scriptFunctions = {
         [1] = function()
             showNotification("Bee Swarm Simulator Script Executed!")
             -- Add actual script logic here
         end,
         [2] = function()
-            showNotification("Jailbreak Script Executed!")
+            showNotification("Bloxfruits Script Executed!")
             -- Add actual script logic here
         end,
         [3] = function()
-            showNotification("Pls Donate Script Executed!")
+            showNotification("Sol's RNG Script Executed!")
             -- Add actual script logic here
         end,
         [4] = function()
+            showNotification("Lumber Tycoon 2 Script Executed!")
+            -- Add actual script logic here
+        end,
+        [5] = function() -- Pet Button functionality
             clearContent()
-            local petScripts = {"Pets Go", "Pets Sim99"}
+            local petScripts = {"Pets Go", "Pet Sim99"}
             for i, pet in ipairs(petScripts) do
                 local petButton = Instance.new("TextButton")
                 petButton.Parent = content
                 petButton.Size = UDim2.new(0.6, 0, 0.1, 0)
-                petButton.Position = UDim2.new(0.2, 0, 0.1 * (i + 1), 0)  -- Adjust this for vertical spacing
+                petButton.Position = UDim2.new(0.2, 0, 0.1 * (i + 1), 0)  -- Adjust for vertical spacing
                 petButton.Text = pet
                 petButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
                 petButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -125,8 +139,17 @@ buttons.Scripts.MouseButton1Click:Connect(function()
                 end)
             end
         end,
+        [6] = function()
+            showNotification("Fisch Script Executed!")
+            -- Add actual script logic here
+        end,
+        [7] = function()
+            showNotification("Pls Donate Script Executed!")
+            -- Add actual script logic here
+        end
     }
 
+    -- Create the buttons for each script
     for i, scriptName in ipairs(scriptButtons) do
         local button = Instance.new("TextButton")
         button.Parent = content
@@ -138,4 +161,29 @@ buttons.Scripts.MouseButton1Click:Connect(function()
         button.TextScaled = true
         button.MouseButton1Click:Connect(scriptFunctions[i])
     end
+end)
+
+-- Add functionality for other buttons like "Main", "Supported Executors", "Support Me", and "Credits"
+buttons["Main"].MouseButton1Click:Connect(function()
+    clearContent()
+    showNotification("Main Section Selected")
+    -- Add main section logic here if needed
+end)
+
+buttons["Supported Executors"].MouseButton1Click:Connect(function()
+    clearContent()
+    showNotification("Supported Executors Section Selected")
+    -- Add supported executors logic here if needed
+end)
+
+buttons["Support Me"].MouseButton1Click:Connect(function()
+    clearContent()
+    showNotification("Support Me Section Selected")
+    -- Add support me section logic here if needed
+end)
+
+buttons["Credits"].MouseButton1Click:Connect(function()
+    clearContent()
+    showNotification("Credits Section Selected")
+    -- Add credits section logic here if needed
 end)
