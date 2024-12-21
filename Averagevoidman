@@ -1,0 +1,164 @@
+-- Services
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "CustomGui"
+screenGui.Parent = playerGui
+screenGui.ResetOnSpawn = true
+
+-- Main Frame
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Parent = screenGui
+mainFrame.Size = UDim2.new(0.4, 0, 0.6, 0) -- 40% width, 60% height
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0) -- Centered
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.BackgroundColor3 = Color3.fromRGB(192, 192, 192) -- Light gray
+mainFrame.BorderSizePixel = 0
+
+-- Add UICorner for rounded edges
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0.1, 0)
+frameCorner.Parent = mainFrame
+
+-- Left Button Container
+local leftContainer = Instance.new("Frame")
+leftContainer.Name = "LeftContainer"
+leftContainer.Parent = mainFrame
+leftContainer.Size = UDim2.new(0.3, 0, 1, 0)
+leftContainer.Position = UDim2.new(0, 0, 0, 0)
+leftContainer.BackgroundColor3 = Color3.fromRGB(170, 170, 170) -- Slightly darker gray
+leftContainer.BorderSizePixel = 0
+
+-- Add UICorner to Left Container
+local leftCorner = Instance.new("UICorner")
+leftCorner.CornerRadius = UDim.new(0.1, 0)
+leftCorner.Parent = leftContainer
+
+-- Right Content Container
+local rightContainer = Instance.new("Frame")
+rightContainer.Name = "RightContainer"
+rightContainer.Parent = mainFrame
+rightContainer.Size = UDim2.new(0.7, 0, 1, 0)
+rightContainer.Position = UDim2.new(0.3, 0, 0, 0)
+rightContainer.BackgroundColor3 = Color3.fromRGB(150, 150, 150) -- Slightly lighter gray
+rightContainer.BorderSizePixel = 0
+
+-- Add UICorner to Right Container
+local rightCorner = Instance.new("UICorner")
+rightCorner.CornerRadius = UDim.new(0.1, 0)
+rightCorner.Parent = rightContainer
+
+-- Button Template
+local function createLeftButton(name, text, position)
+    local button = Instance.new("TextButton")
+    button.Name = name
+    button.Parent = leftContainer
+    button.Size = UDim2.new(0.9, 0, 0.1, 0)
+    button.Position = UDim2.new(0.05, 0, position, 0)
+    button.Text = text
+    button.Font = Enum.Font.SourceSansBold
+    button.TextSize = 18
+    button.TextColor3 = Color3.fromRGB(255, 255, 255) -- White
+    button.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black
+    button.BorderSizePixel = 0
+
+    -- Add UICorner
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0.1, 0)
+    buttonCorner.Parent = button
+
+    return button
+end
+
+-- Create Left Buttons
+local mainButton = createLeftButton("MainButton", "Main", 0.05)
+local scriptsButton = createLeftButton("ScriptsButton", "Scripts", 0.2)
+local supportButton = createLeftButton("SupportButton", "Support Me", 0.35)
+local creditsButton = createLeftButton("CreditsButton", "Credits", 0.5)
+
+-- Create Content for Each Section
+-- Main Content
+local mainContent = Instance.new("Frame")
+mainContent.Name = "MainContent"
+mainContent.Parent = rightContainer
+mainContent.Size = UDim2.new(1, 0, 1, 0)
+mainContent.BackgroundTransparency = 1
+
+-- Add Avatar Decal
+local avatar = Instance.new("ImageLabel")
+avatar.Name = "Avatar"
+avatar.Parent = mainContent
+avatar.Size = UDim2.new(0.5, 0, 0.5, 0)
+avatar.Position = UDim2.new(0.25, 0, 0.1, 0)
+avatar.BackgroundTransparency = 1
+avatar.Image = "rbxassetid://<YOUR_IMAGE_ID>" -- Replace <YOUR_IMAGE_ID> with the decal ID
+
+-- Add Label
+local label = Instance.new("TextLabel")
+label.Parent = mainContent
+label.Size = UDim2.new(1, 0, 0.2, 0)
+label.Position = UDim2.new(0, 0, 0.7, 0)
+label.Text = "Made By: Elmo\nFor more updates, join our server!"
+label.Font = Enum.Font.SourceSansBold
+label.TextSize = 20
+label.TextColor3 = Color3.fromRGB(0, 0, 0)
+label.BackgroundTransparency = 1
+
+-- Scripts Content
+local scriptsContent = Instance.new("Frame")
+scriptsContent.Name = "ScriptsContent"
+scriptsContent.Parent = rightContainer
+scriptsContent.Size = UDim2.new(1, 0, 1, 0)
+scriptsContent.BackgroundTransparency = 1
+scriptsContent.Visible = false
+
+-- Add Script Buttons
+local function createScriptButton(name, text, position, scriptUrl)
+    local button = Instance.new("TextButton")
+    button.Name = name
+    button.Parent = scriptsContent
+    button.Size = UDim2.new(0.8, 0, 0.1, 0)
+    button.Position = UDim2.new(0.1, 0, position, 0)
+    button.Text = text
+    button.Font = Enum.Font.SourceSansBold
+    button.TextSize = 18
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    button.BorderSizePixel = 0
+
+    -- Add UICorner
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0.1, 0)
+    buttonCorner.Parent = button
+
+    -- Button Functionality
+    button.MouseButton1Click:Connect(function()
+        local success, err = pcall(function()
+            loadstring(game:HttpGet(scriptUrl, true))()
+        end)
+        if not success then
+            warn("Failed to execute script: " .. tostring(err))
+        end
+    end)
+end
+
+-- Add Example Script Buttons
+createScriptButton("BloxFruit", "Bloxfruit", 0.05, "https://example.com/script1.lua")
+createScriptButton("Jailbreak", "Jailbreak", 0.2, "https://example.com/script2.lua")
+createScriptButton("BeeSwarm", "Bee Swarm Simulator", 0.35, "https://example.com/script3.lua")
+createScriptButton("PlsDonate", "Pls Donate", 0.5, "https://example.com/script4.lua")
+
+-- Button Click Functionality
+mainButton.MouseButton1Click:Connect(function()
+    mainContent.Visible = true
+    scriptsContent.Visible = false
+end)
+
+scriptsButton.MouseButton1Click:Connect(function()
+    mainContent.Visible = false
+    scriptsContent.Visible = true
+end)
