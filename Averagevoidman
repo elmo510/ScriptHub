@@ -3,38 +3,44 @@ local frame = Instance.new("Frame")
 local buttons = {}
 local content = Instance.new("Frame")
 
--- Parent the GUI to Workspace
-gui.Parent = game.Workspace
-gui.Name = "CustomGUI" -- Optional: Name the GUI for easier identification
+-- Ensure LocalScript compatibility
+local player = game.Players.LocalPlayer
+if not player then
+    warn("This script must run as a LocalScript in the Workspace.")
+    return
+end
+
+-- Parent the GUI to PlayerGui
+gui.Parent = player:WaitForChild("PlayerGui")
 
 -- Configure Main Frame (Responsive Design)
 frame.Parent = gui
-frame.Size = UDim2.new(0.8, 0, 0.6, 0) -- Scales to 80% width and 60% height of the screen
-frame.Position = UDim2.new(0.1, 0, 0.2, 0) -- Centers the frame
-frame.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
+frame.Size = UDim2.new(0.9, 0, 0.7, 0) -- 90% of screen width and 70% of screen height
+frame.Position = UDim2.new(0.05, 0, 0.15, 0) -- Centered with padding
+frame.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- Light gray
 frame.BorderSizePixel = 5
 
--- Left Buttons Layout (Responsive Button Design)
+-- Left Buttons Layout
 local buttonNames = {"Main", "Scripts", "Supported Executors", "Support Me", "Credits"}
 for i, name in ipairs(buttonNames) do
     local button = Instance.new("TextButton")
     button.Parent = frame
-    button.Size = UDim2.new(0.3, 0, 0.1, 0) -- 30% of the width and 10% of the height of the frame
-    button.Position = UDim2.new(0.02, 0, (i - 1) * 0.12, 0) -- Evenly spaced buttons
+    button.Size = UDim2.new(0.25, 0, 0.1, 0) -- 25% width and 10% height of the frame
+    button.Position = UDim2.new(0.02, 0, 0.12 * (i - 1), 0) -- Evenly spaced vertically
     button.Text = name
-    button.BackgroundColor3 = Color3.new(0.7, 0.7, 0.7)
-    button.TextColor3 = Color3.new(0, 0, 0)
-    button.TextScaled = true -- Makes text scale to fit the button size
-    button.Font = Enum.Font.SourceSansBold -- Clear font for readability
+    button.BackgroundColor3 = Color3.fromRGB(180, 180, 180) -- Light gray
+    button.TextColor3 = Color3.fromRGB(0, 0, 0) -- Black text
+    button.Font = Enum.Font.SourceSansBold
+    button.TextScaled = true -- Automatically scales text
     button.Name = name
     buttons[name] = button
 end
 
--- Right Content Area (Flexible for Content)
+-- Right Content Area (For Dynamic Content)
 content.Parent = frame
-content.Size = UDim2.new(0.65, 0, 0.9, 0) -- Occupies 65% of the width and 90% of the height of the frame
-content.Position = UDim2.new(0.34, 0, 0.05, 0) -- Positioned to the right of the buttons
-content.BackgroundColor3 = Color3.new(0.9, 0.9, 0.9)
+content.Size = UDim2.new(0.7, 0, 0.85, 0) -- Takes up 70% width and 85% height
+content.Position = UDim2.new(0.28, 0, 0.05, 0) -- Positioned next to buttons
+content.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Light gray
 
 -- Helper Function to Clear Content
 local function clearContent()
@@ -49,7 +55,7 @@ buttons.Main.MouseButton1Click:Connect(function()
 
     local decal = Instance.new("ImageLabel")
     decal.Parent = content
-    decal.Size = UDim2.new(0.5, 0, 0.5, 0) -- Scales to 50% width and height of the content area
+    decal.Size = UDim2.new(0.5, 0, 0.5, 0) -- 50% width and height of the content
     decal.Position = UDim2.new(0.25, 0, 0.1, 0) -- Centered
     decal.Image = "rbxassetid://139035618094722" -- Replace with your decal ID
 
@@ -58,7 +64,8 @@ buttons.Main.MouseButton1Click:Connect(function()
     text.Size = UDim2.new(0.8, 0, 0.2, 0)
     text.Position = UDim2.new(0.1, 0, 0.7, 0)
     text.Text = "Made by Elmo. For updates, join our server!"
-    text.TextColor3 = Color3.new(0, 0, 0)
+    text.TextColor3 = Color3.fromRGB(0, 0, 0)
+    text.Font = Enum.Font.SourceSansBold
     text.TextScaled = true
     text.BackgroundTransparency = 1
 end)
@@ -72,13 +79,13 @@ buttons.Scripts.MouseButton1Click:Connect(function()
         local button = Instance.new("TextButton")
         button.Parent = content
         button.Size = UDim2.new(0.8, 0, 0.1, 0)
-        button.Position = UDim2.new(0.1, 0, 0.1 * (i - 1), 0)
+        button.Position = UDim2.new(0.1, 0, 0.12 * (i - 1), 0)
         button.Text = scriptName
-        button.BackgroundColor3 = Color3.new(0.7, 0.7, 0.7)
-        button.TextColor3 = Color3.new(0, 0, 0)
-        button.TextScaled = true
+        button.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+        button.TextColor3 = Color3.fromRGB(0, 0, 0)
         button.Font = Enum.Font.SourceSansBold
-        -- Add functionality for each script here (if required)
+        button.TextScaled = true
+        -- Add specific functionality for each script
     end
 end)
 
@@ -88,15 +95,15 @@ buttons["Supported Executors"].MouseButton1Click:Connect(function()
 
     local executors = {"Arceus X", "Fluxus", "Delta", "Codex"}
     for i, executor in ipairs(executors) do
-        local text = Instance.new("TextLabel")
-        text.Parent = content
-        text.Size = UDim2.new(0.8, 0, 0.1, 0)
-        text.Position = UDim2.new(0.1, 0, 0.1 * (i - 1), 0)
-        text.Text = executor
-        text.TextColor3 = Color3.new(0, 0, 0)
-        text.TextScaled = true
-        text.BackgroundTransparency = 1
-        text.Font = Enum.Font.SourceSansBold
+        local label = Instance.new("TextLabel")
+        label.Parent = content
+        label.Size = UDim2.new(0.8, 0, 0.1, 0)
+        label.Position = UDim2.new(0.1, 0, 0.12 * (i - 1), 0)
+        label.Text = executor
+        label.TextColor3 = Color3.fromRGB(0, 0, 0)
+        label.Font = Enum.Font.SourceSansBold
+        label.TextScaled = true
+        label.BackgroundTransparency = 1
     end
 end)
 
@@ -115,10 +122,10 @@ buttons["Support Me"].MouseButton1Click:Connect(function()
     text.Size = UDim2.new(0.8, 0, 0.2, 0)
     text.Position = UDim2.new(0.1, 0, 0.7, 0)
     text.Text = "Join the game <Pls Donate> and offline donate to Averagevoidman!"
-    text.TextColor3 = Color3.new(0, 0, 0)
+    text.TextColor3 = Color3.fromRGB(0, 0, 0)
+    text.Font = Enum.Font.SourceSansBold
     text.TextScaled = true
     text.BackgroundTransparency = 1
-    text.Font = Enum.Font.SourceSansBold
 end)
 
 -- Credits Functionality
@@ -130,18 +137,18 @@ buttons.Credits.MouseButton1Click:Connect(function()
     text.Size = UDim2.new(0.8, 0, 0.2, 0)
     text.Position = UDim2.new(0.1, 0, 0.4, 0)
     text.Text = "In development..."
-    text.TextColor3 = Color3.new(0, 0, 0)
+    text.TextColor3 = Color3.fromRGB(0, 0, 0)
+    text.Font = Enum.Font.SourceSansBold
     text.TextScaled = true
     text.BackgroundTransparency = 1
-    text.Font = Enum.Font.SourceSansBold
 end)
 
 -- Reset Button Colors
 for _, button in pairs(buttons) do
     button.MouseButton1Click:Connect(function()
         for _, otherButton in pairs(buttons) do
-            otherButton.BackgroundColor3 = Color3.new(0.7, 0.7, 0.7)
+            otherButton.BackgroundColor3 = Color3.fromRGB(180, 180, 180) -- Reset to default color
         end
-        button.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
+        button.BackgroundColor3 = Color3.fromRGB(150, 150, 150) -- Highlight selected button
     end)
 end
