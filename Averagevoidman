@@ -166,7 +166,7 @@ end)
 -- Add functionality for other buttons like "Main", "Supported Executors", "Support Me", and "Credits"
 buttons["Main"].MouseButton1Click:Connect(function()
     clearContent()
-    showNotification("Main Section Selected")
+    
 
  -- Main Button Functionality
 buttons.Main.MouseButton1Click:Connect(function()
@@ -187,13 +187,9 @@ buttons.Main.MouseButton1Click:Connect(function()
     text.Font = Enum.Font.SourceSansBold
     text.TextScaled = true
     text.BackgroundTransparency = 1
-
-        end)
 end)
 
-buttons["Supported Executors"].MouseButton1Click:Connect(function()
-    clearContent()
-    showNotification("Supported Executors Section Selected")
+    
          -- Supported Executors Functionality
 buttons["Supported Executors"].MouseButton1Click:Connect(function()
     clearContent()
@@ -208,13 +204,10 @@ buttons["Supported Executors"].MouseButton1Click:Connect(function()
         label.TextColor3 = Color3.fromRGB(0, 0, 0)
         label.Font = Enum.Font.SourceSansBold
         label.TextScaled = true
-        label.BackgroundTransparency = 1                         end
-        end)
+        label.BackgroundTransparency = 1
 end)
 
-buttons["Support Me"].MouseButton1Click:Connect(function()
-    clearContent()
-    showNotification("Support Me Section Selected")
+    
     -- Support Me Functionality
 buttons["Support Me"].MouseButton1Click:Connect(function()
     clearContent()
@@ -234,12 +227,8 @@ buttons["Support Me"].MouseButton1Click:Connect(function()
     text.Font = Enum.Font.SourceSansBold
     text.TextScaled = true
     text.BackgroundTransparency = 1
-        end)
 end)
 
-buttons["Credits"].MouseButton1Click:Connect(function()
-    clearContent()
-    showNotification("Credits Section Selected")
     -- Credits Functionality
 buttons.Credits.MouseButton1Click:Connect(function()
     clearContent()
@@ -253,5 +242,5 @@ buttons.Credits.MouseButton1Click:Connect(function()
     text.Font = Enum.Font.SourceSansBold
     text.TextScaled = true
     text.BackgroundTransparency = 1
-        end)
+
 end)
