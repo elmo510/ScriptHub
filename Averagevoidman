@@ -7,34 +7,36 @@ local content = Instance.new("Frame")
 gui.Parent = game.Workspace
 gui.Name = "CustomGUI" -- Optional: Name the GUI for easier identification
 
--- Configure Main Frame
+-- Configure Main Frame (Responsive Design)
 frame.Parent = gui
-frame.Size = UDim2.new(0, 400, 0, 300)
-frame.Position = UDim2.new(0.5, -200, 0.5, -150)
+frame.Size = UDim2.new(0.8, 0, 0.6, 0) -- Scales to 80% width and 60% height of the screen
+frame.Position = UDim2.new(0.1, 0, 0.2, 0) -- Centers the frame
 frame.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
 frame.BorderSizePixel = 5
 
--- Left Buttons Layout
+-- Left Buttons Layout (Responsive Button Design)
 local buttonNames = {"Main", "Scripts", "Supported Executors", "Support Me", "Credits"}
 for i, name in ipairs(buttonNames) do
     local button = Instance.new("TextButton")
     button.Parent = frame
-    button.Size = UDim2.new(0.25, 0, 0.1, 0)
-    button.Position = UDim2.new(0, 5, 0, (i - 1) * 50 + 5)
+    button.Size = UDim2.new(0.3, 0, 0.1, 0) -- 30% of the width and 10% of the height of the frame
+    button.Position = UDim2.new(0.02, 0, (i - 1) * 0.12, 0) -- Evenly spaced buttons
     button.Text = name
     button.BackgroundColor3 = Color3.new(0.7, 0.7, 0.7)
     button.TextColor3 = Color3.new(0, 0, 0)
+    button.TextScaled = true -- Makes text scale to fit the button size
+    button.Font = Enum.Font.SourceSansBold -- Clear font for readability
     button.Name = name
     buttons[name] = button
 end
 
--- Right Content Area
+-- Right Content Area (Flexible for Content)
 content.Parent = frame
-content.Size = UDim2.new(0.7, 0, 0.9, 0)
-content.Position = UDim2.new(0.3, 0, 0.05, 0)
+content.Size = UDim2.new(0.65, 0, 0.9, 0) -- Occupies 65% of the width and 90% of the height of the frame
+content.Position = UDim2.new(0.34, 0, 0.05, 0) -- Positioned to the right of the buttons
 content.BackgroundColor3 = Color3.new(0.9, 0.9, 0.9)
 
--- Content Functions
+-- Helper Function to Clear Content
 local function clearContent()
     for _, child in pairs(content:GetChildren()) do
         child:Destroy()
@@ -44,13 +46,12 @@ end
 -- Main Button Functionality
 buttons.Main.MouseButton1Click:Connect(function()
     clearContent()
-    buttons.Main.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
 
     local decal = Instance.new("ImageLabel")
     decal.Parent = content
-    decal.Size = UDim2.new(0.5, 0, 0.5, 0)
-    decal.Position = UDim2.new(0.25, 0, 0.1, 0)
-    decal.Image = "rbxassetid://139035618094722" -- Replace with your decal ID.
+    decal.Size = UDim2.new(0.5, 0, 0.5, 0) -- Scales to 50% width and height of the content area
+    decal.Position = UDim2.new(0.25, 0, 0.1, 0) -- Centered
+    decal.Image = "rbxassetid://139035618094722" -- Replace with your decal ID
 
     local text = Instance.new("TextLabel")
     text.Parent = content
@@ -58,90 +59,71 @@ buttons.Main.MouseButton1Click:Connect(function()
     text.Position = UDim2.new(0.1, 0, 0.7, 0)
     text.Text = "Made by Elmo. For updates, join our server!"
     text.TextColor3 = Color3.new(0, 0, 0)
+    text.TextScaled = true
     text.BackgroundTransparency = 1
 end)
 
 -- Scripts Button Functionality
 buttons.Scripts.MouseButton1Click:Connect(function()
     clearContent()
-    buttons.Scripts.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
 
     local scriptButtons = {"Bee Swarm Simulator", "Jailbreak", "Pls Donate", "Pet"}
-    local scriptFunctions = {
-        [1] = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Boxking776/kocmoc/main/library.lua"))() end,
-        [2] = function() -- Add Jailbreak Script Here end,
-        [3] = function() -- Add Pls Donate Script Here end,
-        [4] = function()
-            clearContent()
-            local petScripts = {"Pets Go", "Pets Sim99"}
-            for i, pet in ipairs(petScripts) do
-                local petButton = Instance.new("TextButton")
-                petButton.Parent = content
-                petButton.Size = UDim2.new(0.6, 0, 0.1, 0)
-                petButton.Position = UDim2.new(0.2, 0, 0.1 * i, 0)
-                petButton.Text = pet
-                petButton.MouseButton1Click:Connect(function()
-                    if pet == "Pets Go" then
-                        -- Add Pets Go Script Here
-                    elseif pet == "Pets Sim99" then
-                        -- Add Pets Sim99 Script Here
-                    end
-                end)
-            end
-        end
-    }
-
     for i, scriptName in ipairs(scriptButtons) do
         local button = Instance.new("TextButton")
         button.Parent = content
-        button.Size = UDim2.new(0.6, 0, 0.1, 0)
-        button.Position = UDim2.new(0.2, 0, 0.1 * i, 0)
+        button.Size = UDim2.new(0.8, 0, 0.1, 0)
+        button.Position = UDim2.new(0.1, 0, 0.1 * (i - 1), 0)
         button.Text = scriptName
-        button.MouseButton1Click:Connect(scriptFunctions[i])
+        button.BackgroundColor3 = Color3.new(0.7, 0.7, 0.7)
+        button.TextColor3 = Color3.new(0, 0, 0)
+        button.TextScaled = true
+        button.Font = Enum.Font.SourceSansBold
+        -- Add functionality for each script here (if required)
     end
 end)
 
 -- Supported Executors Functionality
 buttons["Supported Executors"].MouseButton1Click:Connect(function()
     clearContent()
-    buttons["Supported Executors"].BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
 
     local executors = {"Arceus X", "Fluxus", "Delta", "Codex"}
     for i, executor in ipairs(executors) do
         local text = Instance.new("TextLabel")
         text.Parent = content
         text.Size = UDim2.new(0.8, 0, 0.1, 0)
-        text.Position = UDim2.new(0.1, 0, 0.1 * i, 0)
+        text.Position = UDim2.new(0.1, 0, 0.1 * (i - 1), 0)
         text.Text = executor
         text.TextColor3 = Color3.new(0, 0, 0)
+        text.TextScaled = true
         text.BackgroundTransparency = 1
+        text.Font = Enum.Font.SourceSansBold
     end
 end)
 
 -- Support Me Functionality
 buttons["Support Me"].MouseButton1Click:Connect(function()
     clearContent()
-    buttons["Support Me"].BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
 
     local decal = Instance.new("ImageLabel")
     decal.Parent = content
     decal.Size = UDim2.new(0.5, 0, 0.5, 0)
     decal.Position = UDim2.new(0.25, 0, 0.1, 0)
-    decal.Image = "rbxassetid://139035618094722" -- Replace with your support decal ID.
+    decal.Image = "rbxassetid://139035618094722" -- Replace with your support decal ID
 
     local text = Instance.new("TextLabel")
     text.Parent = content
     text.Size = UDim2.new(0.8, 0, 0.2, 0)
     text.Position = UDim2.new(0.1, 0, 0.7, 0)
-    text.Text = "Join the game <pls donate> and offline donate to Averagevoidman!"
+    text.Text = "Join the game <Pls Donate> and offline donate to Averagevoidman!"
     text.TextColor3 = Color3.new(0, 0, 0)
+    text.TextScaled = true
     text.BackgroundTransparency = 1
+    text.Font = Enum.Font.SourceSansBold
 end)
 
 -- Credits Functionality
 buttons.Credits.MouseButton1Click:Connect(function()
     clearContent()
-    buttons.Credits.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
 
     local text = Instance.new("TextLabel")
     text.Parent = content
@@ -149,7 +131,9 @@ buttons.Credits.MouseButton1Click:Connect(function()
     text.Position = UDim2.new(0.1, 0, 0.4, 0)
     text.Text = "In development..."
     text.TextColor3 = Color3.new(0, 0, 0)
+    text.TextScaled = true
     text.BackgroundTransparency = 1
+    text.Font = Enum.Font.SourceSansBold
 end)
 
 -- Reset Button Colors
