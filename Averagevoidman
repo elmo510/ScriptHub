@@ -46,8 +46,6 @@ local buttonNames = {
     "Supported Executors",
     "Support Me",
     "Credits",
-    "Lumber Tycoon",
-    "Fisch",
 }
 for i, name in ipairs(buttonNames) do
     local button = Instance.new("TextButton")
@@ -76,7 +74,7 @@ local function clearContent()
     end
 end
 
--- Button Functionalities
+-- Main Button Functionality
 buttons.Main.MouseButton1Click:Connect(function()
     clearContent()
 
@@ -97,11 +95,11 @@ buttons.Main.MouseButton1Click:Connect(function()
     text.BackgroundTransparency = 1
 end)
 
--- Scripts Button
+-- Scripts Button Functionality
 buttons.Scripts.MouseButton1Click:Connect(function()
     clearContent()
 
-    local scriptButtons = {"Bee Swarm Simulator", "Jailbreak", "Pls Donate", "Pet"}
+    local scriptButtons = {"Bee Swarm Simulator", "Jailbreak", "Pls Donate", "Lumber Tycoon 2", "Fisch", "Sol's RNG"}
     for i, scriptName in ipairs(scriptButtons) do
         local button = Instance.new("TextButton")
         button.Parent = content
@@ -112,28 +110,57 @@ buttons.Scripts.MouseButton1Click:Connect(function()
         button.TextColor3 = Color3.fromRGB(255, 255, 255)
         button.Font = Enum.Font.SourceSansBold
         button.TextScaled = true
+
+        -- Add script loading functionality here
+        button.MouseButton1Click:Connect(function()
+            if scriptName == "Bee Swarm Simulator" then
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Boxking776/kocmoc/main/library.lua"))()
+            elseif scriptName == "Lumber Tycoon 2" then
+                -- Add Lumber Tycoon 2 script here
+            elseif scriptName == "Fisch" then
+                -- Add Fisch script here
+            elseif scriptName == "Sol's RNG" then
+                -- Add Sol's RNG script here
+            end
+        end)
     end
 end)
 
--- Supported Executors
-buttons["Supported Executors"].MouseButton1Click:Connect(function()
+-- Support Me Functionality
+buttons["Support Me"].MouseButton1Click:Connect(function()
     clearContent()
 
-    local executors = {"Arceus X", "Fluxus", "Delta", "Codex"}
-    for i, executor in ipairs(executors) do
-        local label = Instance.new("TextLabel")
-        label.Parent = content
-        label.Size = UDim2.new(0.8, 0, 0.1, 0)
-        label.Position = UDim2.new(0.1, 0, 0.12 * (i - 1), 0)
-        label.Text = executor
-        label.TextColor3 = Color3.fromRGB(255, 255, 255)
-        label.Font = Enum.Font.SourceSansBold
-        label.TextScaled = true
-        label.BackgroundTransparency = 1
-    end
+    local decal = Instance.new("ImageLabel")
+    decal.Parent = content
+    decal.Size = UDim2.new(0.5, 0, 0.5, 0)
+    decal.Position = UDim2.new(0.25, 0, 0.1, 0)
+    decal.Image = "rbxassetid://139035618094722" -- Replace with your support decal ID
+
+    local text = Instance.new("TextLabel")
+    text.Parent = content
+    text.Size = UDim2.new(0.8, 0, 0.2, 0)
+    text.Position = UDim2.new(0.1, 0, 0.7, 0)
+    text.Text = "Join the game <pls donate> and offline donate to Averagevoidman!"
+    text.TextColor3 = Color3.fromRGB(255, 255, 255)
+    text.Font = Enum.Font.SourceSansBold
+    text.TextScaled = true
+    text.BackgroundTransparency = 1
 end)
 
--- Add other button functionalities (Lumber Tycoon, Fisch, etc.) here...
+-- Credits Button Functionality
+buttons.Credits.MouseButton1Click:Connect(function()
+    clearContent()
+
+    local text = Instance.new("TextLabel")
+    text.Parent = content
+    text.Size = UDim2.new(0.8, 0, 0.2, 0)
+    text.Position = UDim2.new(0.1, 0, 0.4, 0)
+    text.Text = "Credits:\nDeveloped by Elmo\nThanks for supporting!"
+    text.TextColor3 = Color3.fromRGB(255, 255, 255)
+    text.Font = Enum.Font.SourceSansBold
+    text.TextScaled = true
+    text.BackgroundTransparency = 1
+end)
 
 -- Reset Button Colors
 for _, button in pairs(buttons) do
