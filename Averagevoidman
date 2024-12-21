@@ -3,8 +3,9 @@ local frame = Instance.new("Frame")
 local buttons = {}
 local content = Instance.new("Frame")
 
--- Parent the GUI to the Player
-gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+-- Parent the GUI to Workspace
+gui.Parent = game.Workspace
+gui.Name = "CustomGUI" -- Optional: Name the GUI for easier identification
 
 -- Configure Main Frame
 frame.Parent = gui
@@ -49,7 +50,7 @@ buttons.Main.MouseButton1Click:Connect(function()
     decal.Parent = content
     decal.Size = UDim2.new(0.5, 0, 0.5, 0)
     decal.Position = UDim2.new(0.25, 0, 0.1, 0)
-    decal.Image = "rbxassetid://139035618094722" -- Replace with your decal link.
+    decal.Image = "rbxassetid://139035618094722" -- Replace with your decal ID.
 
     local text = Instance.new("TextLabel")
     text.Parent = content
@@ -70,7 +71,7 @@ buttons.Scripts.MouseButton1Click:Connect(function()
         [1] = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Boxking776/kocmoc/main/library.lua"))() end,
         [2] = function() -- Add Jailbreak Script Here end,
         [3] = function() -- Add Pls Donate Script Here end,
-        [4] = function() 
+        [4] = function()
             clearContent()
             local petScripts = {"Pets Go", "Pets Sim99"}
             for i, pet in ipairs(petScripts) do
@@ -126,7 +127,7 @@ buttons["Support Me"].MouseButton1Click:Connect(function()
     decal.Parent = content
     decal.Size = UDim2.new(0.5, 0, 0.5, 0)
     decal.Position = UDim2.new(0.25, 0, 0.1, 0)
-    decal.Image = "rbxassetid://139035618094722" -- Replace with your support decal link.
+    decal.Image = "rbxassetid://139035618094722" -- Replace with your support decal ID.
 
     local text = Instance.new("TextLabel")
     text.Parent = content
